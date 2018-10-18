@@ -1,0 +1,10 @@
+def multiply_poly(L1,L2):
+    if len(L1)>len(L2):#保证L2比较长
+        L1,L2 = L2,L1
+    R = [];zeros = []
+    for i in range(len(L1)):
+        T = zeros[:]
+    for e in L2:T.append(e*L1[i])
+    R = add_poly(R,T)
+    zeros = zeros + [0]
+    return R
