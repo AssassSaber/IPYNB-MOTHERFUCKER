@@ -1,0 +1,9 @@
+def add_poly(L1,L2):
+    R = []
+    if len(L1)>len(L2):
+        L1,L2=L2,L1
+    for i in range(len(L1)):
+        R.append(L1[i]+L2[i])
+    for i in range(len(L1),len(L2)):
+        R.append(L2[i])
+    return R
