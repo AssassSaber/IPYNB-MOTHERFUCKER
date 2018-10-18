@@ -1,0 +1,16 @@
+a = int(input("请输入一个R进制的整数（2<=R<10:"))
+a1=str(a)
+R = int(input("2<=R<10:"))
+b = 0
+if R>=10 or R<2:
+    print("error")
+else:
+    for i in range(0,len(a1)):
+        if int(a1[i]) >= R:
+            print("error",end='')
+            b='';break
+        elif a1[i] != '0':
+            d = int(a1[i]) % R
+            e = d*(R**(len(a1)-i-1))
+            b = b + e    
+    print(b)
