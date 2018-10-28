@@ -1,0 +1,101 @@
+def g(x):
+    d = 0
+    weight = 2**(len(x)-2)
+    for i in range(1,len(x)):
+        if x[i] == '1':
+            d = d + weight
+        weight = weight // 2
+    return (d)
+def f1(x):
+    flag = True
+    x1 = x[:]
+    for i in range(len(x)-1,-1,-1):
+        if flag == True and x1[i] == 1:
+            x1[i] = 0
+            flag = False
+        elif flag == True and x1[i] == 0:
+            x1[i] = 1
+    for i2 in range(len(x)):     #取反码
+                    if x1[i2] == 0:
+                        x1[i2]= 1
+                    elif x1[i2] == 1:
+                        x1[i2]= 0
+    return x1
+def f(x):
+    d = ''
+    k =[]
+    if not (-128) <= x and x < 128:
+        print('error')
+    else:
+        x1 = conver_1(abs(x))
+        while len(x1) < 8:    #补零
+            x1 = [0]+x1
+        if x>=0:
+            for i in x1:
+                d = d + str(i)
+            return d
+        else:
+            for i1 in range(len(x1)):
+                k.append(x1[i1])
+            else:
+                for i2 in range(len(k)):     #取反码
+                    if k[i2] == 0:
+                        k[i2]= 1
+                    else:
+                        k[i2]= 0
+            flag = True
+            for i3 in range(len(k)-1,-1,-1):     #加一运算
+                if flag == True and k[i3] == 0:
+                    k[i3] = 1
+                    flag = False
+                elif flag == True and k[i3] == 1:
+                    k[i3] = 0
+            for j in k:
+                d = d + str(j)
+            return d
+def conver_1(x):          #十进制转二进制
+    if x<2:
+        return([x])
+    r=x%2
+    return(conver_1(x//2)+[r])
+def add(a,b):            #使用字符串补位等长加法
+    if len(a) < len(b):
+        b,a = a,b
+    a = a[::-1]          #倒序输出字符串    
+    b = b[::-1]
+    while len(a) != len(b):    #补位     
+        b = b + "0"
+    extra = 0                   #用于进位运算          
+    new = ""
+    for i, j in enumerate(a):     
+        b_sum = int(b[i])
+        new = new + str((int(j) + b_sum + extra) % 2)      #加法
+        if int(j) + b_sum + extra > 1:         #是否进位
+            extra = 1
+        else:
+            extra = 0
+    if extra == 1:                   #最高位是否进位
+        new = new + '1'   
+    return new[::-1]
+a = int(input('请输入一个介于-128到127的整数：'))
+b = int(input('请输入一个介于-128到127的整数：'))
+if a < -128 or a > 127 or b < -128 or b > 127:
+    print('数据不合法请输入一个介于-128到127的整数')
+else:
+    a1 = f(a)
+    b1 = f(b)
+    c = add(a1,b1)
+    c1 = c[::-1]
+    if a*b <= 0:
+        if c[0] == '1':
+            m = f1(c)
+            print(g(m))
+        elif c[0] == '0':
+            print(g(c))            
+    elif a > 0 and b > 0 and c[0] == '1':
+        print("溢出")
+    elif a < 0 and b < 0 and c1[7] == '0':
+        print("溢出")
+    else:
+        m1 = f1(c)
+        print(g(m1))
