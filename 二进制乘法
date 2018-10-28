@@ -1,0 +1,54 @@
+
+def g(x):        #二进制转十进制
+    d = 0
+    weight = 2**(len(x)-1)
+    for i in range(0,len(x)):
+        if x[i] == '1':
+            d = d + weight
+        weight = weight // 2
+    return d
+def add(a,b):            #使用字符串补位等长加法
+    if len(a) < len(b):
+        b,a = a,b
+    a = a[::-1]          #倒序输出字符串    
+    b = b[::-1]
+    while len(a) != len(b):    #补位     
+        b = b + "0"
+    extra = 0                   #用于进位运算          
+    new = ""
+    for i, j in enumerate(a):     
+        b_sum = int(b[i])
+        new = new + str((int(j) + b_sum + extra) % 2)      #加法
+        if int(j) + b_sum + extra > 1:         #是否进位
+            extra = 1
+        else:
+            extra = 0
+    if extra == 1:                   #最高位是否进位
+        new = new + '1'   
+    return new[::-1]
+def conver_1(x):          #十进制转二进制
+    if x<2:
+        return([x])
+    r=x%2
+    return(conver_1(x//2)+[r])
+def mul(a,b):
+    L = ''
+    S1 = ''
+    S2 = ''
+    a1 = conver_1(a)
+    b1 = conver_1(b)
+    for i1 in a1:
+        S1=S1+str(i1)
+    for j1 in b1:
+        S2=S2+str(j1)
+    if len(a1)<len(b1):
+        S1,S2 = S2,S1
+    for i in range(len(S2)):
+        if S2[len(S2)-i-1] == '1':
+            l = S1 + '0'*i
+            L = add(L, l)
+    return L
+a = int(input('请输入一个正整数：'))
+b = int(input('请输入一个正整数：'))
+c = mul(a,b)
+print(g(c))  
