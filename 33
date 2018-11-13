@@ -1,28 +1,32 @@
 a1,b1,c1 = map(int,input().split())
 a2,b2,c2 = map(int,input().split())
 if a1 == 0:
-    if a2 == 0:
+    if a2 != 0:
         if b1 == 0:
             if c1 == 0:
-                print("There're infinite solutions")
+                print("There're infinite solutions.")
             else:
-                print("There's no solution")
+                print("There's no solution.")
         else:
             y = c1/b1
             x = (c2 - b2*y)/a2
             print('%.5f'%x,end = ' ')
             print('%.5f'%y)
-    else:
+    elif b1 != 0 and b2 != 0:
         if c1/b1 == c2/b2:
-            print("There're infinite solutions")
+            print("There're infinite solutions.")
         else:
-            print("There's no solution") 
+            print("There's no solution.")
+    elif (b1 == 0 and b2 != 0) or (b1 != 0 and b2 == 0): 
+        print("There're infinite solutions.")
+    elif b1 == 0 and b2 == 0:
+        print("There's no solution.")
 elif a2 == 0:
-    if b2 != 0:
+    if b2 == 0:
         if c2 == 0:
-            print("There're infinite solutions")
+            print("There're infinite solutions.")
         else:
-            print("There's no solution")
+            print("There's no solution.")
     else:
         y = c2/b2
         x = (c1 - b1*y)/a1
@@ -30,17 +34,17 @@ elif a2 == 0:
         print('%.5f'%y)
 elif b1 == 0 and b2 == 0:
     if c1/b1 == c2/b2:
-        print("There're infinite solutions")
+        print("There're infinite solutions.")
     else:
-        print("There's no solution")
+        print("There's no solution.")
 else:
     b = b1 * a2 - b2 * a1
     c = c1 * a2 - c2 * a1
     if b == 0:
         if c == 0:
-            print("There're infinite solutions")
+            print("There're infinite solutions.")
         else:
-            print("There's no solution")
+            print("There's no solution.")
     else:
         y = c / b 
         x = (c1 - b1*y)/a1
